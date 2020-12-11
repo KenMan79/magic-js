@@ -98,6 +98,7 @@ export interface MagicSDKAdditionalConfiguration<
   locale?: 'en_US' | 'pl_PL';
   network?: EthNetworkConfiguration;
   extensions?: TExt;
+  showMagicUI?: boolean;
 }
 
 export class SDKBase {
@@ -105,6 +106,7 @@ export class SDKBase {
   private static readonly __overlays__: Map<string, ViewController> = new Map();
 
   protected readonly endpoint: string;
+  protected readonly showMagicUI: boolean;
   protected readonly parameters: string;
 
   /**
@@ -136,6 +138,7 @@ export class SDKBase {
 
     const { defaultEndpoint, version } = SDKEnvironment;
     this.endpoint = createURL(options?.endpoint ?? defaultEndpoint).origin;
+    this.showMagicUI = options?.showMagicUI ?? false;
 
     // Prepare built-in modules
     this.auth = new AuthModule(this);
