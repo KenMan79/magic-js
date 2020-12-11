@@ -99,6 +99,7 @@ export interface MagicSDKAdditionalConfiguration<
   network?: EthNetworkConfiguration;
   extensions?: TExt;
   showMagicUI?: boolean;
+  magicUIPosition?: 'bottomRight' | 'bottomLeft' | 'topRight' | 'topLeft';
 }
 
 export class SDKBase {
@@ -107,6 +108,7 @@ export class SDKBase {
 
   protected readonly endpoint: string;
   protected readonly showMagicUI: boolean;
+  protected readonly magicUIPosition: 'bottomRight' | 'bottomLeft' | 'topRight' | 'topLeft';
   protected readonly parameters: string;
 
   /**
@@ -139,6 +141,7 @@ export class SDKBase {
     const { defaultEndpoint, version } = SDKEnvironment;
     this.endpoint = createURL(options?.endpoint ?? defaultEndpoint).origin;
     this.showMagicUI = options?.showMagicUI ?? false;
+    this.magicUIPosition = options?.magicUIPosition ?? 'bottomRight';
 
     // Prepare built-in modules
     this.auth = new AuthModule(this);
