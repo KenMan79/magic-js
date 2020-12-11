@@ -92,8 +92,7 @@ export const contactCardStyle: Partial<CSSStyleDeclaration> = {
   position: 'absolute',
   width: '250px',
   height: '300px',
-  border: '1px solid #757575  ',
-  boxShadow: '0 12px 20px 0 rgba(0,0,0,.15)',
+  boxShadow: '0 0 30px rgba(0, 0, 0, 0.3)',
   borderRadius: '12px',
   padding: '20px',
 };
