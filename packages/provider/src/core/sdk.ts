@@ -175,7 +175,7 @@ export class SDKBase {
    */
   protected get overlay(): ViewController {
     if (!SDKBase.__overlays__.has(this.parameters)) {
-      const controller = new SDKEnvironment.ViewController(this.transport);
+      const controller = new SDKEnvironment.ViewController(this.transport, this);
       SDKBase.__overlays__.set(this.parameters, controller);
     }
 
