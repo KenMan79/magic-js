@@ -25,6 +25,12 @@ import {
   magicCloseBtnStyle,
   magicLoginBtnStyle,
   magicLogoutBtnStyle,
+  disabledStyle,
+  enabledStyle,
+  scaledownStyle,
+  scalebackStyle,
+  inlineLogoImgStyle,
+  inlineHeadingStyle,
 } from './css-styles';
 
 function applyOverlayStyles(elem: HTMLElement, styles: any) {
@@ -78,11 +84,25 @@ const renderContactCardState = async (
     applyOverlayStyles(magicAccountInfo, displayBlockStyle);
     applyOverlayStyles(magicBannerLogoDiv, displayNoneStyle);
     const metadata = await magicUiModule.getMetadata();
+    const inlineLogoImg = document.createElement('img');
+    applyOverlayStyles(inlineLogoImg, inlineLogoImgStyle);
+
+    const headerLabel = document.createElement('div');
+    applyOverlayStyles(headerLabel, inlineHeadingStyle);
+
+    const headerLabelText = document.createElement('b');
     /* eslint-disable-next-line no-param-reassign */
-    magicAccountInfo.innerHTML = `
-    <div style="text-align: center; margin-bottom: 25px; font-size: 20px">
-      <b>Logged in as</b>
-    </div>
+    headerLabelText.innerText = 'Logged in as';
+    headerLabel.appendChild(inlineLogoImg);
+    headerLabel.appendChild(headerLabelText);
+
+    /* eslint-disable-next-line no-param-reassign */
+    magicAccountInfo.innerHTML = ``;
+    magicAccountInfo.appendChild(headerLabel);
+
+    inlineLogoImg.src = logoSrc;
+    /* eslint-disable-next-line no-param-reassign */
+    magicAccountInfo.innerHTML += `
     <div>
       <b>Email:</b>
       ${metadata.email}
@@ -150,8 +170,14 @@ export abstract class ViewController<Transport extends PayloadTransport = Payloa
     magicCloseBtn.onclick = () => hideContactCard(magicLogoDiv, magicContactCardDiv);
 
     magicLoginBtn.textContent = 'Login with Magic';
+    applyOverlayStyles(magicLoginBtn, magicLoginBtnStyle);
     magicLoginBtn.onclick = async () => {
-      await this.magicUiModule.loginWithMagicLink('david.he@magic.link');
+      applyOverlayStyles(magicLoginBtn, disabledStyle);
+      applyOverlayStyles(magicInput, disabledStyle);
+      await this.magicUiModule.loginWithMagicLink(magicInput.value).then(() => {
+        applyOverlayStyles(magicLoginBtn, enabledStyle);
+        applyOverlayStyles(magicInput, enabledStyle);
+      });
       renderContactCardState(
         this.magicUiModule,
         magicLogoutBtn,
@@ -161,12 +187,12 @@ export abstract class ViewController<Transport extends PayloadTransport = Payloa
         magicBannerLogoDiv,
       );
     };
-    applyOverlayStyles(magicLoginBtn, magicLoginBtnStyle);
 
     /* Log out btn */
     magicLogoutBtn.textContent = 'Logout';
     magicLogoutBtn.onclick = async () => {
-      await this.magicUiModule.logout();
+      applyOverlayStyles(magicLogoutBtn, disabledStyle);
+      await this.magicUiModule.logout().then(() => applyOverlayStyles(magicLogoutBtn, enabledStyle));
       renderContactCardState(
         this.magicUiModule,
         magicLogoutBtn,
@@ -180,9 +206,12 @@ export abstract class ViewController<Transport extends PayloadTransport = Payloa
 
     /* Logo */
     magicLogoDiv.src = logoSrc;
-    magicLogoDiv.addEventListener('focus', function () {
-      magicLogoDiv.style.transform = 'scale(0.8)';
-    });
+    magicLogoDiv.onmousedown = () => {
+      applyOverlayStyles(magicLogoDiv, scaledownStyle);
+    };
+    magicLogoDiv.onmouseup = () => {
+      applyOverlayStyles(magicLogoDiv, scalebackStyle);
+    };
     magicLogoDiv.onclick = () => {
       showContactCard(
         magicContactCardDiv,

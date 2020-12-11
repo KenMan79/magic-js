@@ -54,6 +54,7 @@ export const magicLoginBtnStyle: Partial<CSSStyleDeclaration> = {
   lineHeight: '50px',
   textAlign: 'center',
   marginBottom: '55px',
+  transition: '0.3s all',
 };
 
 export const magicLogoutBtnStyle: Partial<CSSStyleDeclaration> = {
@@ -67,6 +68,7 @@ export const magicLogoutBtnStyle: Partial<CSSStyleDeclaration> = {
   lineHeight: '45px',
   textAlign: 'center',
   marginBottom: '45px',
+  transition: '0.3s all',
 };
 
 export const magicLogoImgStyle: Partial<CSSStyleDeclaration> = {
@@ -77,6 +79,18 @@ export const magicLogoImgStyle: Partial<CSSStyleDeclaration> = {
 export const magicBannerLogoImgStyle: Partial<CSSStyleDeclaration> = {
   width: '60px',
   marginBottom: '10px',
+};
+
+export const inlineLogoImgStyle: Partial<CSSStyleDeclaration> = {
+  width: '30px',
+  marginRight: '5px',
+};
+
+export const inlineHeadingStyle: Partial<CSSStyleDeclaration> = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginBottom: '25px',
 };
 
 export const displayNoneStyle: Partial<CSSStyleDeclaration> = { display: 'none' };
@@ -98,3 +112,10 @@ export const contactCardStyle: Partial<CSSStyleDeclaration> = {
 };
 
 export const magicAccountInfoStyle: Partial<CSSStyleDeclaration> = { display: 'flex' };
+
+export const disabledStyle: Partial<CSSStyleDeclaration> = { opacity: '0.5' };
+
+export const enabledStyle: Partial<CSSStyleDeclaration> = { opacity: '1' };
+
+export const scaledownStyle: Partial<CSSStyleDeclaration> = { transform: 'scale(0.92)', transition: '0.3s all' };
+export const scalebackStyle: Partial<CSSStyleDeclaration> = { transform: 'scale(1)' };
